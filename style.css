@@ -2176,69 +2176,88 @@
   /*
   * FEATURES SECTION
   */
-  .features { 
+  .features {
     background-color: var(--white-bg);
     padding-bottom: clamp(var(--space-20), 12vw, var(--space-24));
-  }
+}
   
-  .features h2 { 
-    margin-bottom: clamp(var(--space-12), 7vw, var(--space-20));
-  }
+.features h2 {
+  margin-bottom: clamp(var(--space-12), 7vw, var(--space-20));
+  text-align: center;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
   
-  .features-grid { 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    gap: clamp(var(--space-6), 3vw, var(--space-8));
-  }
+.feature-card {
+  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
   
-  .feature-card { 
-    background-color: var(--light-bg);
-    padding: clamp(var(--space-8), 4vw, var(--space-8));
-    border-radius: var(--border-radius);
-    border: 1px solid transparent;
-    transition: 
-      transform var(--transition-normal) var(--ease-out), 
-      box-shadow var(--transition-normal) var(--ease-out), 
-      border-color var(--transition-normal) var(--ease-out), 
-      background-color var(--transition-normal) var(--ease-out);
-    display: flex;
-    align-items: flex-start;
-    gap: clamp(var(--space-5), 3vw, var(--space-8));
-    position: relative;
-    z-index: var(--z-normal);
-  }
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
   
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(
-      135deg,
-      hsla(var(--primary-hsl), 0.3) 0%,
-      transparent 50%
-    );
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity var(--transition-normal) var(--ease-out);
-    z-index: -1;
-  }
+.feature-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  gap: var(--space-4);
+}
+
+.feature-card:hover .feature-icon-wrapper {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1) rotate(8deg);
+  box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+
+.feature-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: rgba(var(--primary-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
   
-  .feature-card:hover { 
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-hover);
-    background-color: var(--white-bg);
-    border-color: var(--border-color);
-  }
-  
-  .feature-card:hover::before {
-    opacity: 1;
-  }
+.feature-card:hover::before {
+  opacity: 1;
+}
   
   .feature-icon { 
     flex-shrink: 0;
@@ -2314,23 +2333,23 @@
     gap: clamp(var(--space-6), 3.5vw, var(--space-10));
     margin-bottom: var(--space-12);
     justify-content: center;
+    position: relative;
+    z-index: 1;
   }
   
   .plan {
     background-color: var(--white-bg);
-    padding: 
-      clamp(var(--space-8), 5vw, var(--space-12))
-      clamp(var(--space-6), 3.5vw, var(--space-8));
+    padding: clamp(var(--space-8), 5vw, var(--space-12)) clamp(var(--space-6), 3.5vw, var(--space-8));
     border-radius: var(--border-radius-large);
     text-align: center;
     border: 1px solid var(--border-color);
-    transition: 
-      transform var(--transition-normal) var(--ease-out), 
-      box-shadow var(--transition-normal) var(--ease-out), 
-      border-color var(--transition-normal) var(--ease-out);
+    transition: transform var(--transition-normal) var(--ease-out), 
+                box-shadow var(--transition-normal) var(--ease-out), 
+                border-color var(--transition-normal) var(--ease-out);
     position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
     overflow: hidden;
     max-width: 400px;
     width: 100%;
@@ -2418,7 +2437,7 @@
   
   .popular-badge {
     position: absolute;
-    top: -16px;
+    top: -16px; /* Размещаем над карточкой */
     left: 50%;
     transform: translateX(-50%);
     background: var(--primary-color);
@@ -2427,9 +2446,8 @@
     border-radius: 20px;
     font-size: 0.8125rem;
     font-weight: var(--font-weight-semibold);
-    box-shadow: 
-      0 4px 10px hsla(var(--primary-hsl), 0.3),
-      0 0 0 1px hsla(var(--primary-hsl), 0.1);
+    box-shadow: 0 4px 10px hsla(var(--primary-hsl), 0.3),
+                0 0 0 1px hsla(var(--primary-hsl), 0.1);
     white-space: nowrap;
     z-index: 3;
   }
@@ -2477,40 +2495,41 @@
     font-size: clamp(0.875rem, 1.8vw, 0.9375rem);
     color: var(--muted-text);
     margin-bottom: var(--space-8);
+    text-align: center;
   }
   
   .plan ul {
     margin: var(--space-8) 0;
-    text-align: left;
     padding-left: var(--space-2);
     flex-grow: 1;
     list-style: none;
-  }
-  
-  .plan ul li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-    font-size: clamp(1rem, 2.1vw, 1.0625rem);
-    color: var(--dark-text);
-    padding-block: var(--space-1);
-  }
-  
-  .plan ul li i {
-    color: var(--success-color);
-    font-size: 1em;
-    width: 20px;
-    text-align: center;
-    margin-top: 0.25rem;
-    flex-shrink: 0;
-  }
-  
-  .plan .btn {
-    margin-top: auto;
     width: 100%;
-    transition: all var(--transition-normal) var(--ease-out);
+    text-align: left;
   }
+
+  .plan ul li {
+  display: flex;
+  align-items: flex-start; 
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: clamp(1rem, 2.1vw, 1.0625rem);
+  color: var(--dark-text);
+  padding-block: var(--space-1);
+}
+  
+.plan ul li i {
+  color: var(--success-color);
+  font-size: 1em;
+  width: 20px;
+  text-align: center;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+.plan .btn {
+  margin-top: auto;
+  width: 100%;
+  transition: all var(--transition-normal) var(--ease-out);
+}
   
   .plan .btn:hover {
     transform: translateY(-5px);
@@ -3137,6 +3156,30 @@
       padding-block: var(--space-3); 
     }
     
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+  }
+
+  .feature-card {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: var(--space-5);
+}
+
+.feature-top {
+    flex-direction: column;
+    text-align: center;
+}
+
+.feature-card h3 {
+    text-align: center;
+}
+
+.feature-card p {
+    text-align: center;
+}
+
     .main-nav {
         position: fixed;
         top: 0;
@@ -3297,6 +3340,25 @@
       right: 20px;
     }
   }
+
+  /* Заголовок карточки */
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--dark-text);
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* Описание */
+.feature-card p {
+  color: var(--muted-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  text-align: left;
+}
+
   
   @media (max-width: 480px) {
     .feature-card {
